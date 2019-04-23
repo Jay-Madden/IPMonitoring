@@ -64,6 +64,7 @@ namespace IPMonitoring.Pages
             {
                 Responses = PingAsync.AsyncPing(IpAddressList);
                 List<IPAddress> tempIpAddresses = new List<IPAddress>();
+                bool UIRefreshNeeded = false;
                 foreach (var ip in Responses.Result)
                 {
                     tempIpAddresses.Add(ip.Address);
@@ -73,17 +74,26 @@ namespace IPMonitoring.Pages
                 {
                     if (tempIpAddresses.Contains(IpData[i].Ip))
                     {
-                        uiContext.Send(x => IpData[i].Connected = true, null);
+                        if (IpData[i].Connected == false)
+                        {
+                            uiContext.Send(x => IpData[i].Connected = true, null);
+                            UIRefreshNeeded = true;
+                        }
                     }
-                    else
+                    else if(IpData[i].Connected == true)
                     {
                         uiContext.Send(x => IpData[i].Connected = false, null);
+                        UIRefreshNeeded = true;
 
                     }
                 }
-                IpData.Refresh(uiContext);
+                if (UIRefreshNeeded)
+                {
+                    IpData.Refresh(uiContext);
+                    UIRefreshNeeded = false;
+                }
+                Thread.Sleep(500);
             }
-            Thread.Sleep(500);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -24,11 +25,10 @@ namespace IPMonitoring.Models
         }
 
 
-        public static List<IPDataModel> ParseIpHTML(List<IPDataModel> ipDataModel, string filePath)
+        public static ObservableCollection<IPDataModel> ParseIpHTML(ObservableCollection<IPDataModel> ipDataModel, string filePath)
         {
             if (File.Exists(filePath))
             {
-                IPDataModel tempIpDataModel = new IPDataModel();
 
                 string html = File.ReadAllText(filePath);
 
@@ -41,7 +41,9 @@ namespace IPMonitoring.Models
                     string line = reader.ReadLine();
                     while(line != "</table>" && line != "</body>")
                     {
-                        tempIpDataModel.Ip = PullInfoFromTag(line);
+                        IPDataModel tempIpDataModel = new IPDataModel();
+
+                        tempIpDataModel.Ip = IPAddress.Parse(PullInfoFromTag(line));
 
                         line = reader.ReadLine();
                         tempIpDataModel.Device = PullInfoFromTag(line);
@@ -50,7 +52,7 @@ namespace IPMonitoring.Models
                         tempIpDataModel.Category = PullInfoFromTag(line);
 
                         line = reader.ReadLine();
-                        tempIpDataModel.Device = PullInfoFromTag(line);
+                        //tempIpDataModel.Device = PullInfoFromTag(line);
 
                         line = reader.ReadLine();
                         line = reader.ReadLine();

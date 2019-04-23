@@ -5,24 +5,111 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IPMonitoring.Pages"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
              xmlns:s="https://github.com/canton7/Stylet"
              mc:Ignorable="d" 
+             Name="MonitorIPViewName"
              Background="{DynamicResource MaterialDesignPaper}"
-             d:DesignHeight="800" d:DesignWidth="800">
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DataGrid
-  Margin="0 8 0 0"
-  CanUserSortColumns="True"
-  CanUserAddRows="False" 
-  materialDesign:DataGridAssist.CellPadding="4 2 2 2"
-  materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
-  />
+    <!--<smtx:XamlDisplay Key="grids_3">
+        <DataGrid
+              CanUserSortColumns="True"
+              CanUserAddRows="False" 
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+              materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+              ItemsSource="{Binding IpData}"
+              AllowDrop="False"
+              IsReadOnly="True" Margin="40"
+              VerticalScrollBarVisibility="Hidden"
+              >
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding test}" Value="true" >
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+    </smtx:XamlDisplay>-->
+    <DataGrid 
+        IsReadOnly="True"
+        Width="1000"
+        Margin="0 8 0 0" 
+        AllowDrop="False" 
+        VerticalScrollBarVisibility="Hidden"
+        HorizontalScrollBarVisibility="Auto"
+        ItemsSource="{Binding IpData}" 
+        CanUserSortColumns="True" 
+        AutoGenerateColumns="False" 
+        CanUserAddRows="False"
+        materialDesign:DataGridAssist.CellPadding="4 2 2 2" 
+        materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+        <DataGrid.Columns>
+            <DataGridCheckBoxColumn Binding="{Binding Connected}" 
+                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                <DataGridCheckBoxColumn.Header>
+                    <!--padding to allow hit test to pass thru for sorting -->
+                    <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
+                        <CheckBox HorizontalAlignment="Center"
+                                          DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"/>
+                    </Border>
+                </DataGridCheckBoxColumn.Header>
+            </DataGridCheckBoxColumn>
+            <DataGridTextColumn Binding="{Binding Ip}"
+                                        Header="IP Address"
+                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+            <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Device}"
+                       Header="Device"
+                       EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" 
+                       />
+            <!-- set a max length to get an indicator in the editor -->
+             <materialDesign:MaterialDataGridTextColumn Binding="{Binding Category}"
+                           Header="Category"
+                           EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+           <materialDesign:MaterialDataGridTextColumn Binding="{Binding EplanCode}"
+                           Header="Eplan Code"
+                           EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
+            <materialDesign:MaterialDataGridTextColumn Binding="{Binding Name}"
+                            Header="Device Name"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                <DataGridTextColumn.HeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding}" TextAlignment="Right"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGridTextColumn.HeaderStyle>
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+            </materialDesign:MaterialDataGridTextColumn>
+
+            <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
+            <!--<materialDesign:MaterialDataGridComboBoxColumn Header="Food"
+                                                                   SelectedValueBinding="{Binding Food}"
+                                                                   ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}" />-->
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>

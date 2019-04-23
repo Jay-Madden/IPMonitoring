@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +9,8 @@ namespace IPMonitoring.Models
 {
     public class IPDataModel
     {
-        private string ip;
+        private bool connected;
+        private IPAddress ip;
         private string device;
         private string category;
         private string eplanCode;
@@ -18,7 +20,12 @@ namespace IPMonitoring.Models
         {
 
         }
-        public string Ip
+        public bool Connected
+        {
+            get => connected;
+            set => connected = value;
+        }
+        public IPAddress Ip
         {
             get => ip;
             set => ip = value;
@@ -47,5 +54,7 @@ namespace IPMonitoring.Models
             get => name;
             set => name = value;
         }
+
+ 
     }
 }

@@ -82,7 +82,9 @@
   <ItemGroup>
     <Compile Include="Models\IPDataModel.cs" />
     <Compile Include="Models\MachineSelectModel.cs" />
+    <Compile Include="Models\ObservableCollectionPropertyNotify.cs" />
     <Compile Include="Models\ParseHTML.cs" />
+    <Compile Include="Models\PingAsync.cs" />
     <Compile Include="Pages\MachineSelectView.xaml.cs">
       <DependentUpon>MachineSelectView.xaml</DependentUpon>
     </Compile>

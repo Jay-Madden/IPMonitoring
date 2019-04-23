@@ -13,12 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IPMonitoring {
+namespace IPMonitoring.Pages
+{
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MonitorIPView.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class MonitorIPView : UserControl
+    {
+        public MonitorIPView()
+        {
             InitializeComponent();
         }
     }

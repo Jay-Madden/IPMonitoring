@@ -38,7 +38,7 @@
         materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding Connected}" 
-                                            ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                            ElementStyle="{StaticResource MaterialDesignAccentCheckBox}"
                                             EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
                     <DataGridCheckBoxColumn.Header>
                         <!--padding to allow hit test to pass thru for sorting -->
@@ -110,11 +110,49 @@
                       ToolTip="Set Refresh Rate"
                       Height="60"
                       Width="60"
+                      Command="{s:Action SetRefreshRate_OnClick}"
                       >
                     <TextBlock HorizontalAlignment="Center">
                     Refresh<LineBreak/>  Rate</TextBlock>
                 </Button>
             </StackPanel>
         </materialDesign:PopupBox>
+        <materialDesign:Card
+              Background="{DynamicResource PrimaryHueDarkBrush}"
+              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+              Width="80"
+              Height="100"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Padding="8"
+              Visibility="{Binding RefreshRateInputVisibility}"
+              >
+            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                <TextBox
+                      materialDesign:HintAssist.Hint="Refresh Rate(ms)"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                      PreviewTextInput="{s:Action RefreshRateInput_OnPreviewTextInput}"
+                      Text="{Binding RefreshRateInput}"
+                      />
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                        Width="20"
+                        Height="20"
+                        Content="{materialDesign:PackIcon Check}"
+                        Margin="22,0"
+                        Click="{s:Action AcceptRefreshRate_OnClick}"
+                        />
+                </StackPanel>
+
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </UserControl>

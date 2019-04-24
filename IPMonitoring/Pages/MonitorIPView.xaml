@@ -90,22 +90,30 @@
       Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
       PlacementMode="TopAndAlignCentres"
       VerticalAlignment="Bottom"
-      HorizontalAlignment="Center"
+      HorizontalAlignment="Right"
       Margin="20"
       ToolTipService.Placement="Right"
       ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
       >
             <StackPanel>
                 <Button
+                      FontWeight="Bold"
                       ToolTip="Return to Machine Select"
-
+                      Height="60"
+                      Width="60"
+                      Command="{s:Action ReturnToMachine_OnClick}"
                       >
+                      Exit
                 </Button>
                 <Button
-                  ToolTip="Set Refresh Rate">
-                    2
+                      FontWeight="Bold"
+                      ToolTip="Set Refresh Rate"
+                      Height="60"
+                      Width="60"
+                      >
+                    <TextBlock HorizontalAlignment="Center">
+                    Refresh<LineBreak/>  Rate</TextBlock>
                 </Button>
-
             </StackPanel>
         </materialDesign:PopupBox>
     </Grid>

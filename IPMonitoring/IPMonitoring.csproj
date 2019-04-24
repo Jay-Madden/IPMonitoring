@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Pages\MonitorIPViewModel.cs" />
     <Compile Include="Pages\OnStartIP.cs" />
+    <Compile Include="Pages\ReturnToMachine.cs" />
     <Compile Include="Pages\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>

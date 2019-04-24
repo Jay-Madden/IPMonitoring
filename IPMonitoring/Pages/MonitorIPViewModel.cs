@@ -21,9 +21,11 @@ namespace IPMonitoring.Pages
         private string inputProjectNumber;
         private Thread PingThread;
         private SynchronizationContext uiContext;
+        private IEventAggregator eventAggregator;
 
         public MonitorIPViewModel(string filePath)
         {
+            this.eventAggregator = new EventAggregator();
             SelectedFilePath = filePath;
             IpData = new ObservableCollectionPropertyNotify<IPDataModel>();
             IpAddressList = new List<IPAddress>();
@@ -49,6 +51,11 @@ namespace IPMonitoring.Pages
             get => inputProjectNumber;
             set => inputProjectNumber = value;
         }
+        public void ReturnToMachine_OnClick()
+        {
+            this.eventAggregator.Publish(new ReturnToMachine()); 
+        }
+
 
         public void StartIpPingThread()
         {
@@ -56,6 +63,7 @@ namespace IPMonitoring.Pages
                 Name = "AsyncPingThread"
             };
             PingThread.Start();
+            PingThread.IsBackground = true;
         }
 
         public void PingIPs()

@@ -15,7 +15,6 @@ namespace IPMonitoring.Models
             Ping pingSender = new Ping();
             var tasks = IPList.Select(Ip => new Ping().SendPingAsync(Ip, 200));
             var results = await Task.WhenAll(tasks);
-
             return results.ToList();
         }
     }

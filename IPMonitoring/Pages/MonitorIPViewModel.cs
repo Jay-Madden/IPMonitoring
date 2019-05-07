@@ -44,6 +44,7 @@ namespace IPMonitoring.Pages
             //sets default refresh rate at 500 ms
             internalRefreshRate = 500;
 
+            //add the ips from IpDataModel to the ipaddr list that is given to the asyncping command
             ParseHTML.ParseIpHTML(IpData, filePath);
             for (int i = 0; i < IpData.Count; i++)
             {
@@ -53,15 +54,15 @@ namespace IPMonitoring.Pages
             RefreshIP = true;
 
             //~~~~~~~~~~~!!DO NOT CHANGE THIS!!~~~~~~~~~~~~~~~~~~~~~~
-            //There is a bug in .NET frameworks 4 and up that causes a PROCCESS_HAS_LOCKED_PAGES blue screen of death
+            //There is a bug in .NET frameworks 4 and up that causes a PROCCESS_HAS_LOCKED_PAGES  Windows Blue Screen of Death
             //if you have a debugger attached and stop debugging while the ping is in process
-            //If you want to test ping functionality you must build without debugging (CTRL-F5)
-
+            //If you want to test ping functionality you must build/run without debugging (CTRL-F5)
             if (!System.Diagnostics.Debugger.IsAttached)
             {
                 StartIpPingThread();
             }
-
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         } 
         #endregion
@@ -101,7 +102,10 @@ namespace IPMonitoring.Pages
 
             //Wait for ping thread to finish before returning to machineselectview
             RefreshIP = false;
-            PingThread.Join();
+            if (!(PingThread is null))
+            {
+                PingThread.Join();
+            }
 
             this.eventAggregator.Publish(new ReturnToMachine());
         }
@@ -166,7 +170,6 @@ namespace IPMonitoring.Pages
                     {
                         uiContext.Send(x => IpData[i].Connected = false, null);
                         UIRefreshNeeded = true;
-
                     }
                 }
                 //Set so that the UI is only refreshed if a change in connection state is detected

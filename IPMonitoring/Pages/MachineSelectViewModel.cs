@@ -1,22 +1,36 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media.TextFormatting;
 using IPMonitor.Models;
 using Stylet;
 using Screen = Stylet.Screen;
 
 namespace IPMonitoring.Pages
 {
+    public class NamesWithCollection : ObservableCollection<Names>
+    {
+        public NamesWithCollection()
+        {
+            Add(new Names("Hi", "Hello"));
+            Add(new Names("World", "Wurld"));
+        }
+    }
+    public class Names
+    {
+        public Names(string name, string name1)
+        {
+            this.name1 = name;
+            this.name2 = name1;
+        }
+        public string name1 { get; set; }
+        public string name2 { get; set; }
+    }
+
     public class MachineSelectViewModel : Screen
     {
         #region Fields
@@ -57,6 +71,14 @@ namespace IPMonitoring.Pages
             {
                 ProjectSelectIsEnabled = false;
             }
+            //NamesOC = new NamesWithCollection();
+            //NamesOC = new ObservableCollection<string>
+            //{
+            //    "hello",
+            //    "wor;d"
+            //};
+
+
         } 
 
         #endregion
@@ -110,24 +132,28 @@ namespace IPMonitoring.Pages
             set { SetAndNotify(ref this.startIPTestIsEnabled, value); }
         }
 
-
         public string ProjectSelectString
         {
-            get => projectSelectString;
-            set => projectSelectString = value;
+            get { return this.projectSelectString; }
+            set { SetAndNotify(ref this.projectSelectString, value); }
         }
 
         public string MachineSelectString
         {
-            get => machineSelectString;
-            set => machineSelectString = value;
+            get { return this.machineSelectString; }
+            set { SetAndNotify(ref this.machineSelectString, value); }
         }
         public string SelectedFilePath { get; set; }
 
+        //public ObservableCollection<Names> NamesOC { get; set; }
+
+        public NamesWithCollection NamesOC { get; set; } = new NamesWithCollection();
+
+        //public ObservableCollection<string> NamesOC { get; set; }
         #endregion
 
         #region Functions
-        
+
         public void UpdateProjectCollections()
         {
             ProjectSelectCollection.Clear();
@@ -184,6 +210,10 @@ namespace IPMonitoring.Pages
 
         public void MachineSelect_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(MachineSelectString is null)
+            {
+                return;
+            }
             StartIPTestIsEnabled = true;
             DeleteMachineVisibility = Visibility.Visible;
             SelectedFilePath =
@@ -202,11 +232,13 @@ namespace IPMonitoring.Pages
             DialogResult result = _openBrowserDialog.ShowDialog();
             if (result.ToString() == "OK")
             {
-                if (Int32.Parse(inputProjectNumber) > 0 && Int32.Parse(inputMachineNumber) > 0)
+                
+                if (Int32.TryParse(inputProjectNumber, out int tempProjectNumber) && Int32.TryParse(inputMachineNumber, out int tempMachineNumber))
                 {
-                    _MachineSelectModel.AddMachine(Int32.Parse(inputProjectNumber),Int32.Parse(inputMachineNumber), _openBrowserDialog.FileName);
-                    UpdateProjectCollections();
+                    _MachineSelectModel.AddMachine(tempProjectNumber, tempMachineNumber, _openBrowserDialog.FileName);
                     ProjectSelectIsEnabled = true;
+                    SelectedFilePath = _openBrowserDialog.FileName;
+                    StartIPTest_Click();
                 }
             }
         }

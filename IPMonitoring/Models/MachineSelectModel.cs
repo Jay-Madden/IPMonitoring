@@ -40,11 +40,6 @@ namespace IPMonitor.Models {
             WriteMachineInfo(MachineInfoDict);
         }
 
-
-        #endregion
-
-        #region Functions
-        
         private void LoadMachineInfo()
         {
 

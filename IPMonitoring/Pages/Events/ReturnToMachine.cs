@@ -10,6 +10,7 @@ namespace IPMonitoring.Pages
     {
         public ReturnToMachine()
         {
+
         }
     }
 }

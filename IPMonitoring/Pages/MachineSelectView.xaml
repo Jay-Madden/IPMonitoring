@@ -1,17 +1,19 @@
-﻿<UserControl x:Class="IPMonitoring.Pages.MachineSelectView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:IPMonitoring.Pages"
-             xmlns:s="https://github.com/canton7/Stylet"
-             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             Background="{DynamicResource MaterialDesignPaper}"
-             d:DesignHeight="800" d:DesignWidth="800"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-             >
+﻿<UserControl
+    x:Class="IPMonitoring.Pages.MachineSelectView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:IPMonitoring.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    mc:Ignorable="d"
+    >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,47 +23,49 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <smtx:XamlDisplay  
-        Key="machineSelect" 
-        VerticalContentAlignment="Center" 
-        HorizontalAlignment="Center" >
-        <StackPanel
-            Margin="-50">
+    <smtx:XamlDisplay
+        Key="machineSelect"
+        HorizontalAlignment="Center"
+        VerticalContentAlignment="Center"
+        >
+        <StackPanel Margin="-50">
             <smtx:XamlDisplay Key="AddMachine">
                 <materialDesign:Flipper
-                        Height="300"
-                        Width="200"
-                        Style="{StaticResource MaterialDesignCardFlipper}" 
-                        >
+                    Width="200"
+                    Height="300"
+                    Style="{StaticResource MaterialDesignCardFlipper}"
+                    >
                     <materialDesign:Flipper.FrontContent>
-                        <Grid Height="300" Width="200">
+                        <Grid
+                            Width="200"
+                            Height="300"
+                            >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="120"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="120" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="70" />
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0">
-                                <Image 
-                                Source="../Assets/LoginSplash.jpg"
-                                Width="200"
-                                >
-                                </Image>
+                                <Image
+                                    Width="200"
+                                    Source="../Assets/LoginSplash.jpg"
+                                    />
                             </StackPanel>
-                            <StackPanel Grid.Row="1" >
+                            <StackPanel Grid.Row="1">
                                 <ComboBox
-                                      Name="ProjectSelect"
-                                      materialDesign:HintAssist.Hint="Select Project"
-                                      MinWidth="100"
-                                      MaxWidth="300"
-                                      Margin="0 0 0 0"
-                                      HorizontalAlignment="Center"
-                                      SelectedItem="{Binding ProjectSelectString}"
-                                      IsEnabled="{Binding ProjectSelectIsEnabled}"
-                                      SelectionChanged="{s:Action ProjectSelect_OnSelectionChanged}"
-                                      ItemsSource="{Binding ProjectSelectCollection}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      >
+                                    Name="ProjectSelect"
+                                    MinWidth="100"
+                                    MaxWidth="300"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Select Project"
+                                    IsEnabled="{Binding ProjectSelectIsEnabled}"
+                                    ItemsSource="{Binding ProjectSelectCollection}"
+                                    SelectedItem="{Binding ProjectSelectString}"
+                                    SelectionChanged="{s:Action ProjectSelect_OnSelectionChanged}"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    >
                                     <ComboBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <VirtualizingStackPanel />
@@ -69,57 +73,52 @@
                                     </ComboBox.ItemsPanel>
                                 </ComboBox>
                             </StackPanel>
-                            <StackPanel Grid.Row="2" >
+                            <StackPanel Grid.Row="2">
                                 <ComboBox
-                                      Name="MachineSelect"
-                                      materialDesign:HintAssist.Hint="Select Machine"
-                                      MinWidth="100"
-                                      MaxWidth="300"
-                                      Margin="0 0 0 0"
-                                      HorizontalAlignment="Center"
-                                      SelectedItem="{Binding MachineSelectString}"
-                                      SelectionChanged="{s:Action MachineSelect_OnSelectionChanged}"
-                                      IsEnabled="{Binding MachineSelectIsEnabled}"
-                                      ItemsSource="{Binding MachineSelectCollection}"
-                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                      >
-                                </ComboBox>
+                                    Name="MachineSelect"
+                                    MinWidth="100"
+                                    MaxWidth="300"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="Select Machine"
+                                    IsEnabled="{Binding MachineSelectIsEnabled}"
+                                    ItemsSource="{Binding MachineSelectCollection}"
+                                    SelectedItem="{Binding MachineSelectString}"
+                                    SelectionChanged="{s:Action MachineSelect_OnSelectionChanged}"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    />
                             </StackPanel>
-                            <StackPanel Grid.Row="3" >
-                                <Button 
-                                    Margin="-80 0 0 0"
+                            <StackPanel Grid.Row="3">
+                                <Button
+                                    Margin="-80,0,0,0"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                     Content="{materialDesign:PackIcon CreateNewFolderOutline}"
                                     Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                    >
-                                </Button>
-                                <Button 
+                                    />
+                                <Button
                                     Name="StartIPTest"
-                                    Margin="80 -55 0 0"
-                                    Content="{materialDesign:PackIcon ArrowRightThick}"
-                                    Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"
-                                    IsEnabled="{Binding StartIPTestIsEnabled}"
+                                    Margin="80,-55,0,0"
                                     Click="{s:Action StartIPTest_Click}"
-                                    >
-                                </Button>
+                                    Content="{materialDesign:PackIcon ArrowRightThick}"
+                                    IsEnabled="{Binding StartIPTestIsEnabled}"
+                                    Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"
+                                    />
                             </StackPanel>
                             <materialDesign:Transitioner SelectedIndex="0">
-                                <materialDesign:TransitionerSlide 
-                                    
-                                    OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom}">
+                                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect SlideInFromBottom}">
                                     <Button
-                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                                    Width="100"
-                                    ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
-                                    Height="30"
-                                    MinWidth="110"
-                                    FontSize="11"
-                                    FontFamily="Roboto"
-                                    VerticalAlignment="Bottom"
-                                    Margin="0 0 0 3"
-                                    Visibility="{Binding DeleteMachineVisibility}"
-                                    Click="{s:Action DeleteMachine_OnClick}"
-                                    >
+                                        Width="100"
+                                        Height="30"
+                                        MinWidth="110"
+                                        Margin="0,0,0,3"
+                                        VerticalAlignment="Bottom"
+                                        Click="{s:Action DeleteMachine_OnClick}"
+                                        FontFamily="Roboto"
+                                        FontSize="11"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                        ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                        Visibility="{Binding DeleteMachineVisibility}"
+                                        >
                                         Delete Machine
                                     </Button>
                                 </materialDesign:TransitionerSlide>
@@ -128,75 +127,96 @@
                         </Grid>
                     </materialDesign:Flipper.FrontContent>
                     <materialDesign:Flipper.BackContent>
-                        <Grid Height="250" Width="200">
+                        <Grid
+                            Width="200"
+                            Height="250"
+                            >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="35"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="85"/>
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="85" />
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" >
+                            <StackPanel Grid.Row="0">
                                 <Button
+                                    Width="20"
+                                    Height="20"
+                                    Margin="10"
+                                    HorizontalAlignment="Right"
+                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                    Opacity=".5"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                                     ToolTip="MaterialDesignFloatingActionMiniLightButton"
-                                    HorizontalAlignment="Right"
-                                    Opacity=".5"
-                                    Margin="10"
-                                    Height="20" 
-                                    Width="20"
-                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                     >
                                     <materialDesign:PackIcon
-                                        Kind="Close"
+                                        Width="15"
                                         Height="15"
-                                        Width="15" />
+                                        Kind="Close"
+                                        />
                                 </Button>
                             </StackPanel>
                             <StackPanel Grid.Row="1">
                                 <TextBox
                                     Name="ProjectNumber"
-                                    materialDesign:HintAssist.Hint="Project Number"
-                                    Text="{Binding InputProjectNumber}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Width="120"
+                                    materialDesign:HintAssist.Hint="Project Number"
                                     PreviewTextInput="{s:Action ProjectNumberInput_OnPreviewTextInput}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding InputProjectNumber}"
                                     />
                             </StackPanel>
-                            <StackPanel Grid.Row="2" >
+                            <StackPanel Grid.Row="2">
                                 <TextBox
                                     Name="MachineNumber"
-                                    materialDesign:HintAssist.Hint="Machine Number"
-                                    Text="{Binding InputMachineNumber}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Width="120"
+                                    materialDesign:HintAssist.Hint="Machine Number"
                                     PreviewTextInput="{s:Action MachineNumberInput_OnPreviewTextInput}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding InputMachineNumber}"
                                     />
                             </StackPanel>
                             <StackPanel Grid.Row="3">
                                 <TextBlock
+                                    Margin="2"
+                                    HorizontalAlignment="Center"
                                     FontFamily="Arial"
                                     FontSize="12"
                                     Foreground="Gray"
-                                    HorizontalAlignment="Center"
-                                    Margin="2"
                                     >
                                     Select IP Sheet
                                 </TextBlock>
-                                <Button 
+                                <Button
                                     Name="BrowseFileButton"
-                                    Content="{materialDesign:PackIcon FileFindOutline}"
-                                    Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"
-                                    Height="50"
                                     Width="50"
+                                    Height="50"
                                     Click="{s:Action BrowseFile}"
                                     Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                    >
-                                </Button>
+                                    Content="{materialDesign:PackIcon FileFindOutline}"
+                                    Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"
+                                    />
                             </StackPanel>
                         </Grid>
                     </materialDesign:Flipper.BackContent>
                 </materialDesign:Flipper>
             </smtx:XamlDisplay>
+            <ListBox
+                Width="120"
+                VerticalAlignment="Stretch"
+                ItemsSource="{Binding NamesOC}"
+               >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding name1}"/>
+                            <TextBlock Grid.Row="1" Text="{Binding name2}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </smtx:XamlDisplay>
 
